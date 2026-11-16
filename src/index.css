@@ -6,11 +6,21 @@
     --font-script: 'Great Vibes', cursive;
     --font-royal: 'Cinzel Decorative', serif;
     --font-sans: 'Nunito', sans-serif;
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
   }
 
   body {
     font-family: var(--font-sans);
     overflow-x: hidden;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   h1, h2, h3, .font-serif {
@@ -23,6 +33,66 @@
 
   .font-royal {
     font-family: var(--font-royal);
+  }
+
+  /* Ensure 16px minimum font size on mobile inputs to prevent iOS auto-zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    touch-manipulation: manipulation;
+  }
+
+  button,
+  a {
+    touch-manipulation: manipulation;
+  }
+}
+
+/* Force minimum 16px font-size on all mobile viewports to prevent iOS auto-zoom */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area utilities */
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pl-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+.pr-safe {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Ensure fixed bottom floating widgets respect iOS safe area */
+.fixed.bottom-4 {
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+.fixed.right-4 {
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+}
+
+/* Minimum touch target utility */
+.min-touch-target {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Screens < 400px layout & font hierarchy polish */
+@media screen and (max-width: 400px) {
+  .royal-shadow {
+    box-shadow: 0 6px 20px -3px rgba(244, 114, 182, 0.2), 0 10px 15px -3px rgba(217, 119, 6, 0.08);
   }
 }
 

@@ -1,5 +1,16 @@
 import { useState, useEffect, type FC } from 'react'
-import { X, Crown, Baby, Users, Gift, Copy, Check, Download, Trash2 } from 'lucide-react'
+import {
+  X,
+  Crown,
+  Baby,
+  Users,
+  Gift,
+  Copy,
+  Check,
+  Download,
+  Trash2,
+  MessageCircle,
+} from 'lucide-react'
 import type { RSVPData } from '../types'
 
 interface OrganizerModalProps {
@@ -12,18 +23,18 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) return
+
+    const timer = setTimeout(() => {
       try {
         const stored = localStorage.getItem('laura_olivia_rsvp_list')
-        if (stored) {
-          setList(JSON.parse(stored))
-        } else {
-          setList([])
-        }
+        setList(stored ? JSON.parse(stored) : [])
       } catch (err) {
         console.warn(err)
       }
-    }
+    }, 0)
+
+    return () => clearTimeout(timer)
   }, [isOpen])
 
   if (!isOpen) return null
@@ -47,7 +58,7 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
     }))
   )
 
-  const handleCopySummary = () => {
+  const getSummaryText = (): string => {
     let text = `👑 LISTA DE CONFIRMADOS - FESTA DE 1 ANO LAURA & OLÍVIA 👑\n\n`
     text += `📊 RESUMO GERAL:\n`
     text += `• Total de Famílias/Convites: ${attendingList.length}\n`
@@ -74,13 +85,22 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
       text += `\n`
     })
 
-    navigator.clipboard.writeText(text)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2500)
+    return text
+  }
+
+  const handleCopySummary = async () => {
+    try {
+      await navigator.clipboard.writeText(getSummaryText())
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    } catch (err) {
+      console.warn('Erro ao copiar resumo:', err)
+    }
   }
 
   const handleExportCSV = () => {
-    let csv = 'Nome Convidado,Telefone,Status,Acompanhantes,Total Adultos,Criancas (Nome e Idade),Recado\n'
+    let csv =
+      'Nome Convidado,Telefone,Status,Acompanhantes,Total Adultos,Criancas (Nome e Idade),Recado\n'
     list.forEach((item) => {
       const kids = (item.children || [])
         .map((c) => `${c.name} [${c.age}]`)
@@ -101,6 +121,18 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
     document.body.removeChild(link)
   }
 
+  const handleDeleteItem = (id: string, name: string) => {
+    if (window.confirm(`Deseja remover a resposta de "${name}"?`)) {
+      const updated = list.filter((item) => item.id !== id)
+      setList(updated)
+      try {
+        localStorage.setItem('laura_olivia_rsvp_list', JSON.stringify(updated))
+      } catch (err) {
+        console.warn('Erro ao salvar atualização local:', err)
+      }
+    }
+  }
+
   const handleClearList = () => {
     if (window.confirm('Tem certeza que deseja limpar toda a lista salva neste navegador?')) {
       localStorage.removeItem('laura_olivia_rsvp_list')
@@ -108,24 +140,29 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
     }
   }
 
+  const whatsAppSummaryUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+    getSummaryText()
+  )}`
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-amber-200 overflow-y-auto">
-        {/* Fechar */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/70 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-2xl max-h-[92vh] bg-white rounded-3xl p-5 sm:p-8 shadow-2xl border-4 border-amber-200 overflow-y-auto">
+        {/* Fechar com touch target >= 48px */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-stone-500 hover:text-stone-800 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 min-w-[48px] min-h-[48px] p-2 text-stone-500 hover:text-stone-800 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors flex items-center justify-center cursor-pointer"
+          aria-label="Fechar painel"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Cabeçalho */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-amber-100 rounded-2xl text-amber-700">
+        <div className="flex items-center gap-3 mb-6 pr-10">
+          <div className="p-3 bg-amber-100 rounded-2xl text-amber-700 shrink-0">
             <Crown className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-pink-900 font-serif">
+            <h3 className="text-xl sm:text-2xl font-bold text-pink-900 font-serif">
               Painel da Carina & Família 👑
             </h3>
             <p className="text-xs text-stone-500 font-medium">
@@ -135,7 +172,7 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
         </div>
 
         {/* Cards de Métricas */}
-        <div className="grid grid-cols-3 gap-3 mb-6 text-center">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-6 text-center">
           <div className="p-3 bg-pink-50 rounded-2xl border border-pink-100">
             <p className="text-xs text-pink-700 font-semibold flex items-center justify-center gap-1">
               <Users className="w-3.5 h-3.5" /> Total Adultos
@@ -182,18 +219,18 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
               {allChildren.map((child, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-2.5 bg-amber-50/50 rounded-xl border border-amber-200/70 text-xs"
+                  className="flex items-center justify-between p-2.5 sm:p-3 bg-amber-50/50 rounded-xl border border-amber-200/70 text-xs"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 bg-amber-200 text-amber-900 rounded-full font-bold flex items-center justify-center text-[10px]">
+                    <span className="w-5 h-5 bg-amber-200 text-amber-900 rounded-full font-bold flex items-center justify-center text-[10px] shrink-0">
                       {idx + 1}
                     </span>
                     <span className="font-bold text-stone-900">{child.name}</span>
-                    <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded-md font-semibold text-[10px]">
+                    <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded-md font-bold text-[10px]">
                       {child.age}
                     </span>
                   </div>
-                  <span className="text-stone-400 text-[11px]">
+                  <span className="text-stone-500 text-[11px] truncate max-w-[140px] text-right">
                     Resp: {child.parentName}
                   </span>
                 </div>
@@ -202,7 +239,7 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
           )}
         </div>
 
-        {/* Lista Completa de Confirmações */}
+        {/* Lista Completa de Confirmações com ação de exclusão individual */}
         <div className="mb-6">
           <h4 className="text-sm font-bold text-pink-900 mb-2 font-serif">
             Histórico de Confirmações ({list.length})
@@ -217,69 +254,90 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
               {list.map((item) => (
                 <div
                   key={item.id}
-                  className={`p-3 rounded-2xl border text-xs ${
+                  className={`p-3 rounded-2xl border text-xs flex items-start justify-between gap-2 ${
                     item.attending === 'yes'
                       ? 'bg-pink-50/40 border-pink-200'
-                      : 'bg-stone-50 border-stone-200 opacity-60'
+                      : 'bg-stone-50 border-stone-200 opacity-70'
                   }`}
                 >
-                  <div className="flex items-center justify-between font-bold text-stone-900 mb-1">
-                    <span>{item.guestName}</span>
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] ${
-                        item.attending === 'yes'
-                          ? 'bg-emerald-100 text-emerald-800'
-                          : 'bg-stone-200 text-stone-600'
-                      }`}
-                    >
-                      {item.attending === 'yes' ? 'Confirmado' : 'Não irá'}
-                    </span>
+                  <div className="space-y-1 flex-1">
+                    <div className="flex items-center gap-2 font-bold text-stone-900">
+                      <span>{item.guestName}</span>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          item.attending === 'yes'
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : 'bg-stone-200 text-stone-600'
+                        }`}
+                      >
+                        {item.attending === 'yes' ? 'Confirmado' : 'Não irá'}
+                      </span>
+                    </div>
+                    <p className="text-stone-600">📱 {item.phone}</p>
+                    {item.hasAdults && item.adultGuests && (
+                      <p className="text-stone-600">👥 Acompanhantes: {item.adultGuests}</p>
+                    )}
+                    {item.hasChildren && item.children.length > 0 && (
+                      <p className="text-amber-800 font-medium">
+                        👶 Crianças: {item.children.map((c) => `${c.name} (${c.age})`).join(', ')}
+                      </p>
+                    )}
+                    {item.message && (
+                      <p className="text-pink-700 italic mt-0.5">"{item.message}"</p>
+                    )}
                   </div>
-                  <p className="text-stone-600">📱 {item.phone}</p>
-                  {item.hasAdults && item.adultGuests && (
-                    <p className="text-stone-600">👥 Acompanhantes: {item.adultGuests}</p>
-                  )}
-                  {item.hasChildren && item.children.length > 0 && (
-                    <p className="text-amber-800 font-medium">
-                      👶 Crianças: {item.children.map((c) => `${c.name} (${c.age})`).join(', ')}
-                    </p>
-                  )}
-                  {item.message && (
-                    <p className="text-pink-700 italic mt-1">"{item.message}"</p>
-                  )}
+
+                  <button
+                    onClick={() => handleDeleteItem(item.id, item.guestName)}
+                    className="min-w-[48px] min-h-[48px] p-2 text-stone-400 hover:text-rose-500 rounded-xl hover:bg-rose-50 transition-colors flex items-center justify-center shrink-0 cursor-pointer"
+                    title="Excluir resposta"
+                    aria-label={`Excluir resposta de ${item.guestName}`}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        {/* Botões de Ação do Painel */}
-        <div className="space-y-2 pt-3 border-t border-stone-200">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {/* Botões de Ação do Painel (Todos >= 48px) */}
+        <div className="space-y-2.5 pt-3 border-t border-stone-200">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <button
               onClick={handleCopySummary}
-              className="py-2.5 px-4 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="min-h-[48px] py-3 px-3 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Copiado para o WhatsApp!' : 'Copiar Resumo p/ WhatsApp'}</span>
+              <span>{copied ? 'Copiado!' : 'Copiar Resumo'}</span>
             </button>
+
+            <a
+              href={whatsAppSummaryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-h-[48px] py-3 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Enviar no WhatsApp</span>
+            </a>
 
             <button
               onClick={handleExportCSV}
-              className="py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="min-h-[48px] py-3 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>Baixar Planilha (Excel / CSV)</span>
+              <span>Baixar Planilha</span>
             </button>
           </div>
 
           {list.length > 0 && (
             <button
               onClick={handleClearList}
-              className="w-full py-1.5 text-stone-400 hover:text-rose-500 text-[11px] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
+              className="w-full min-h-[48px] py-2.5 text-stone-400 hover:text-rose-500 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
-              <span>Limpar dados locais</span>
+              <span>Limpar todos os dados locais</span>
             </button>
           )}
         </div>
