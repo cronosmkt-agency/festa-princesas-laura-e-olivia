@@ -41,7 +41,7 @@ export const Hero: FC<HeroProps> = ({
         <div className="relative max-w-2xl mx-auto mb-8 rounded-3xl p-2 sm:p-3 bg-gradient-to-tr from-amber-300 via-pink-200 to-amber-200 shadow-2xl royal-shadow transform transition-all duration-500 hover:scale-[1.01]">
           <div className="overflow-hidden rounded-2xl relative group">
             <img
-              src="/hero-princesas.jpg"
+              src="./hero-princesas.jpg"
               alt="Princesas Laura e Olívia - 1º Aninho"
               className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
             />

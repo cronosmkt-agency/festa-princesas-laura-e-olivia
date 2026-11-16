@@ -17,7 +17,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
 
   useEffect(() => {
     if (!audioRef.current) {
-      const audio = new Audio('/festa-das-gemeas.mp3')
+      const audio = new Audio('./festa-das-gemeas.mp3')
       audio.loop = true
       audio.preload = 'auto'
       audioRef.current = audio
