@@ -2,13 +2,17 @@ import type { RSVPData } from '../types'
 
 export const SHEETS_STORAGE_KEY = 'laura_olivia_sheets_url'
 
-// URL padrão configurada (ou obtida do localStorage ou env)
+// URL padrão da implantação criada no Google Apps Script
+export const DEFAULT_SHEETS_URL =
+  'https://script.google.com/macros/s/AKfycbwT9rmL_0rI-rvdK6_jXg5D1PKqdM4YhjytoQkwko_6wSYRohlqCFWvDrU_xqsuaWY/exec'
+
+// URL configurada (obtida do localStorage, env ou URL padrão)
 export const getGoogleSheetsUrl = (): string => {
   if (typeof window === 'undefined') return ''
   return (
     localStorage.getItem(SHEETS_STORAGE_KEY) ||
     import.meta.env.VITE_GOOGLE_SHEETS_URL ||
-    ''
+    DEFAULT_SHEETS_URL
   )
 }
 
@@ -76,9 +80,23 @@ export const sendRSVPToGoogleSheets = async (
 /**
  * Código pronto do Google Apps Script para a Carina ou o usuário colar na planilha
  */
-export const GOOGLE_APPS_SCRIPT_CODE = `function doPost(e) {
+export const GOOGLE_APPS_SCRIPT_CODE = `// Se você criou o Apps Script direto pelo site script.google.com (por fora da planilha),
+// cole o link da sua planilha dentro das aspas abaixo:
+var URL_DA_PLANILHA = ""; // Ex: "https://docs.google.com/spreadsheets/d/1Bxi.../edit"
+
+function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var sheet;
+    if (URL_DA_PLANILHA && URL_DA_PLANILHA.indexOf("http") !== -1) {
+      sheet = SpreadsheetApp.openByUrl(URL_DA_PLANILHA).getActiveSheet();
+    } else {
+      var activeSS = SpreadsheetApp.getActiveSpreadsheet();
+      if (!activeSS) {
+        throw new Error("Planilha não vinculada. Por favor, preencha a variável URL_DA_PLANILHA no topo do código com o link da sua planilha do Google Sheets.");
+      }
+      sheet = activeSS.getActiveSheet();
+    }
+    
     var data = JSON.parse(e.postData.contents);
     
     // Cria o cabeçalho se a planilha estiver vazia
