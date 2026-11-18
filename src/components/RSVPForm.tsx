@@ -17,6 +17,7 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { AGE_PRESETS, type ChildGuest, type RSVPData } from '../types'
+import { sendRSVPToGoogleSheets } from '../services/googleSheets'
 
 interface RSVPFormProps {
   onRSVPSubmitted: (data: RSVPData) => void
@@ -246,6 +247,11 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
     } catch (err) {
       console.warn('Erro ao salvar localmente:', err)
     }
+
+    // Enviar automaticamente para a Planilha do Google Sheets da Carina
+    sendRSVPToGoogleSheets(rsvp).catch((err) => {
+      console.warn('Erro assíncrono ao sincronizar Google Sheets:', err)
+    })
 
     // Efeito de confetes no aceite
     if (attending === 'yes') {

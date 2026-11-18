@@ -10,8 +10,19 @@ import {
   Download,
   Trash2,
   MessageCircle,
+  FileSpreadsheet,
+  Bell,
+  ChevronDown,
+  ChevronUp,
+  Sparkles,
 } from 'lucide-react'
 import type { RSVPData } from '../types'
+import {
+  getGoogleSheetsUrl,
+  setGoogleSheetsUrl,
+  sendRSVPToGoogleSheets,
+  GOOGLE_APPS_SCRIPT_CODE,
+} from '../services/googleSheets'
 
 interface OrganizerModalProps {
   isOpen: boolean
@@ -21,6 +32,12 @@ interface OrganizerModalProps {
 export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => {
   const [list, setList] = useState<RSVPData[]>([])
   const [copied, setCopied] = useState(false)
+  const [sheetsUrlInput, setSheetsUrlInput] = useState('')
+  const [sheetsSaved, setSheetsSaved] = useState(false)
+  const [isSyncing, setIsSyncing] = useState(false)
+  const [syncMessage, setSyncMessage] = useState<string | null>(null)
+  const [showTutorial, setShowTutorial] = useState(false)
+  const [copiedScript, setCopiedScript] = useState(false)
 
   useEffect(() => {
     if (!isOpen) return
@@ -29,6 +46,7 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
       try {
         const stored = localStorage.getItem('laura_olivia_rsvp_list')
         setList(stored ? JSON.parse(stored) : [])
+        setSheetsUrlInput(getGoogleSheetsUrl())
       } catch (err) {
         console.warn(err)
       }
@@ -137,6 +155,52 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
     if (window.confirm('Tem certeza que deseja limpar toda a lista salva neste navegador?')) {
       localStorage.removeItem('laura_olivia_rsvp_list')
       setList([])
+    }
+  }
+
+  const handleSaveSheetsUrl = () => {
+    setGoogleSheetsUrl(sheetsUrlInput)
+    setSheetsSaved(true)
+    setTimeout(() => setSheetsSaved(false), 3000)
+  }
+
+  const handleSyncAllToSheets = async () => {
+    const url = sheetsUrlInput.trim() || getGoogleSheetsUrl()
+    if (!url) {
+      alert('Por favor, cole primeiro a URL do Google Sheets Webhook antes de sincronizar.')
+      return
+    }
+
+    if (list.length === 0) {
+      alert('A lista ainda não tem confirmações para enviar.')
+      return
+    }
+
+    setIsSyncing(true)
+    setSyncMessage(null)
+
+    try {
+      let sentCount = 0
+      for (const item of list) {
+        await sendRSVPToGoogleSheets(item, url)
+        sentCount++
+      }
+      setSyncMessage(`Sucesso! ${sentCount} confirmações sincronizadas com a planilha.`)
+    } catch {
+      setSyncMessage('Ocorreu um erro ao tentar sincronizar com a planilha.')
+    } finally {
+      setIsSyncing(false)
+      setTimeout(() => setSyncMessage(null), 4000)
+    }
+  }
+
+  const handleCopyAppsScript = async () => {
+    try {
+      await navigator.clipboard.writeText(GOOGLE_APPS_SCRIPT_CODE)
+      setCopiedScript(true)
+      setTimeout(() => setCopiedScript(false), 3000)
+    } catch (err) {
+      console.warn('Erro ao copiar script:', err)
     }
   }
 
@@ -297,6 +361,114 @@ export const OrganizerModal: FC<OrganizerModalProps> = ({ isOpen, onClose }) => 
                   </button>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+
+        {/* Integração com Google Sheets (Notificações no Celular da Carina) */}
+        <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-emerald-50 via-teal-50 to-pink-50 rounded-2xl border-2 border-emerald-200/90 shadow-sm text-left space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
+                <FileSpreadsheet className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-emerald-950 font-serif flex items-center gap-1.5">
+                  <span>Conexão com Google Sheets</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                    sheetsUrlInput.trim() ? 'bg-emerald-200 text-emerald-900' : 'bg-amber-100 text-amber-800'
+                  }`}>
+                    {sheetsUrlInput.trim() ? 'Conectado 🟢' : 'Aguardando Link'}
+                  </span>
+                </h4>
+                <p className="text-[11px] text-stone-600">
+                  Notifica o celular da Carina a cada presença confirmada
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowTutorial(!showTutorial)}
+              className="text-xs text-emerald-800 hover:text-emerald-950 font-bold flex items-center gap-1 bg-white/80 hover:bg-white px-2.5 py-1.5 rounded-lg border border-emerald-200 transition-colors cursor-pointer"
+            >
+              <span>{showTutorial ? 'Ocultar Tutorial' : 'Como Conectar'}</span>
+              {showTutorial ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+
+          {/* Campo da URL do Webhook do Google Apps Script */}
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="url"
+              placeholder="Cole a URL do Google Apps Script (https://script.google.com/macros/s/.../exec)"
+              value={sheetsUrlInput}
+              onChange={(e) => setSheetsUrlInput(e.target.value)}
+              className="flex-1 px-3 py-2 text-xs bg-white rounded-xl border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-stone-800 placeholder-stone-400"
+            />
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={handleSaveSheetsUrl}
+                className="min-h-[40px] px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+              >
+                {sheetsSaved ? <Check className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}
+                <span>{sheetsSaved ? 'Salvo!' : 'Salvar Link'}</span>
+              </button>
+
+              {list.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleSyncAllToSheets}
+                  disabled={isSyncing}
+                  className="min-h-[40px] px-3 py-2 bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1 cursor-pointer shrink-0"
+                  title="Enviar as respostas salvas atualmente para a planilha"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{isSyncing ? 'Enviando...' : 'Sincronizar'}</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {syncMessage && (
+            <p className="text-xs font-semibold text-emerald-800 bg-emerald-100/80 p-2 rounded-lg">
+              {syncMessage}
+            </p>
+          )}
+
+          {/* Tutorial Passo a Passo com 1-Click Copy */}
+          {showTutorial && (
+            <div className="p-3.5 bg-white/95 rounded-xl border border-emerald-200 text-xs text-stone-700 space-y-2 mt-2">
+              <p className="font-bold text-emerald-950 flex items-center gap-1">
+                <span>Passo a passo rápido (Leva apenas 1 minuto):</span>
+              </p>
+              <ol className="list-decimal list-inside space-y-1 text-stone-600 pl-1">
+                <li>Abra uma planilha nova no seu <strong>Google Sheets</strong> (sheets.new).</li>
+                <li>No menu superior, clique em <strong>Extensões → Apps Script</strong>.</li>
+                <li>Apague o código que estiver lá e cole o script pronto abaixo:</li>
+              </ol>
+
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={handleCopyAppsScript}
+                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                >
+                  {copiedScript ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedScript ? 'Código Copiado!' : 'Copiar Código do Google Apps Script'}</span>
+                </button>
+              </div>
+
+              <ol start={4} className="list-decimal list-inside space-y-1 text-stone-600 pl-1 pt-1">
+                <li>No Apps Script, clique no botão azul <strong>Implantar → Nova Implantação</strong>.</li>
+                <li>Em <i>Tipo</i> (ícone de engrenagem), selecione <strong>App da Web</strong>.</li>
+                <li>Em <i>Quem pode acessar</i>, escolha <strong>Qualquer pessoa</strong>.</li>
+                <li>Clique em <strong>Implantar</strong>, copie a URL gerada e cole no campo acima!</li>
+              </ol>
+
+              <p className="text-[11px] text-pink-700 font-semibold pt-1">
+                ✨ A planilha criará automaticamente as colunas e notificará a Carina por e-mail/notificação push no celular a cada nova presença!
+              </p>
             </div>
           )}
         </div>
