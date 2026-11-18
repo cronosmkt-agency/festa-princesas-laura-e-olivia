@@ -2,9 +2,9 @@ import type { RSVPData } from '../types'
 
 export const SHEETS_STORAGE_KEY = 'laura_olivia_sheets_url'
 
-// URL padrão da implantação criada no Google Apps Script
+// URL padrão da implantação criada no Google Apps Script da Carina
 export const DEFAULT_SHEETS_URL =
-  'https://script.google.com/macros/s/AKfycbwT9rmL_0rI-rvdK6_jXg5D1PKqdM4YhjytoQkwko_6wSYRohlqCFWvDrU_xqsuaWY/exec'
+  'https://script.google.com/macros/s/AKfycbxIsIah-wh6uuvDB1OgDeB9LJYbyExtTZ_i9bkwmaaXIIvr4TptF8w74U-R4fEmbYneEA/exec'
 
 // URL configurada (obtida do localStorage, env ou URL padrão)
 export const getGoogleSheetsUrl = (): string => {
