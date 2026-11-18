@@ -90,10 +90,8 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
           artist: 'Laura & Olívia',
           album: '1º Aninho Real das Princesas',
           artwork: [
-            { src: resolveUrl('cover.jpg'), sizes: '96x96', type: 'image/jpeg' },
-            { src: resolveUrl('cover.jpg'), sizes: '128x128', type: 'image/jpeg' },
+            { src: resolveUrl('laura-e-olivia.jpg'), sizes: '512x512', type: 'image/jpeg' },
             { src: resolveUrl('cover.jpg'), sizes: '192x192', type: 'image/jpeg' },
-            { src: resolveUrl('cover.jpg'), sizes: '256x256', type: 'image/jpeg' },
             { src: resolveUrl('hero-princesas.jpg'), sizes: '512x512', type: 'image/jpeg' },
           ],
         })

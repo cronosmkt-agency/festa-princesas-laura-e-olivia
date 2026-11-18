@@ -45,10 +45,19 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
     >
       <div className="relative w-full max-w-md my-auto max-h-[92dvh] overflow-y-auto bg-gradient-to-b from-white via-pink-50/95 to-amber-50/95 rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-amber-200/90 text-center transform transition-all duration-500 scale-100">
         
-        {/* Brasão / Coroa Superior */}
-        <div className="relative mx-auto w-20 h-20 -mt-14 mb-4 flex items-center justify-center rounded-full bg-gradient-to-tr from-amber-400 via-amber-300 to-yellow-100 shadow-xl border-4 border-white">
-          <Crown className="w-10 h-10 text-amber-800 animate-pulse-subtle" />
-          <Sparkles className="absolute -top-1 -right-1 w-5 h-5 text-amber-500 animate-spin" style={{ animationDuration: '4s' }} />
+        {/* Brasão Real com Foto das Princesas */}
+        <div className="relative mx-auto w-24 h-24 -mt-16 mb-3 rounded-full p-1 bg-gradient-to-tr from-amber-400 via-pink-300 to-amber-200 shadow-xl border-4 border-white">
+          <div className="w-full h-full rounded-full overflow-hidden bg-pink-100">
+            <img
+              src="./laura-e-olivia.jpg"
+              alt="Laura e Olívia"
+              className="w-full h-full object-cover object-[center_35%]"
+            />
+          </div>
+          <div className="absolute -top-2 -right-1 w-8 h-8 rounded-full bg-amber-400 border-2 border-white flex items-center justify-center shadow-md animate-bounce" style={{ animationDuration: '3s' }}>
+            <Crown className="w-4 h-4 text-amber-900" />
+          </div>
+          <Sparkles className="absolute -bottom-1 -left-1 w-5 h-5 text-amber-500 animate-spin" style={{ animationDuration: '6s' }} />
         </div>
 
         {/* Tag de Chamada */}

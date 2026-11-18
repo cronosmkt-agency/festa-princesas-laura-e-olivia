@@ -1,5 +1,5 @@
-import type { FC } from 'react'
-import { Sparkles, Calendar, Clock, MapPin, Heart, ChevronDown, Music } from 'lucide-react'
+import { useState, type FC } from 'react'
+import { Sparkles, Calendar, Clock, MapPin, Heart, ChevronDown, Music, Image as ImageIcon, Castle } from 'lucide-react'
 
 interface HeroProps {
   onScrollToRSVP: () => void
@@ -12,10 +12,20 @@ export const Hero: FC<HeroProps> = ({
   onScrollToLocation,
   onOpenLyrics,
 }) => {
+  const [photoView, setPhotoView] = useState<'real' | 'castle'>('real')
+
   return (
     <section className="relative overflow-hidden pt-5 pb-10 sm:pt-10 sm:pb-16 text-center">
       {/* Decorações de fundo e partículas */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-pink-200/50 via-pink-100/30 to-transparent blur-3xl pointer-events-none -z-10" />
+
+      {/* Borboletas decorativas sutis inspiradas na foto oficial */}
+      <div className="absolute top-8 left-4 sm:left-12 text-2xl opacity-75 animate-float pointer-events-none">
+        🦋
+      </div>
+      <div className="absolute top-20 right-4 sm:right-16 text-xl opacity-75 animate-float pointer-events-none" style={{ animationDelay: '2s' }}>
+        🌸
+      </div>
 
       <div className="max-w-4xl mx-auto px-3 min-[380px]:px-4 sm:px-6">
         
@@ -39,20 +49,41 @@ export const Hero: FC<HeroProps> = ({
 
         {/* Imagem das Princesas em Moldura Real */}
         <div className="relative max-w-2xl mx-auto mb-6 sm:mb-8 rounded-2xl min-[380px]:rounded-3xl p-1.5 min-[380px]:p-2.5 sm:p-3 bg-gradient-to-tr from-amber-300 via-pink-200 to-amber-200 shadow-2xl royal-shadow transform transition-all duration-500 hover:scale-[1.01]">
-          <div className="overflow-hidden rounded-xl min-[380px]:rounded-2xl relative group">
+          <div className="overflow-hidden rounded-xl min-[380px]:rounded-2xl relative group bg-pink-100">
             <img
-              src="./hero-princesas.jpg"
+              src={photoView === 'real' ? './laura-e-olivia.jpg' : './hero-princesas.jpg'}
               alt="Princesas Laura e Olívia - 1º Aninho"
               className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
             />
             {/* Overlay sutil */}
             <div className="absolute inset-0 bg-gradient-to-t from-pink-950/40 via-transparent to-transparent pointer-events-none" />
             
-            {/* Selo no canto da imagem */}
-            <div className="absolute bottom-2.5 left-2.5 min-[380px]:bottom-3.5 min-[380px]:left-3.5 sm:bottom-4 sm:left-4 bg-white/90 backdrop-blur-md px-2.5 min-[380px]:px-3.5 py-1 min-[380px]:py-1.5 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 max-w-[calc(100%-20px)]">
+            {/* Selo no canto inferior esquerdo */}
+            <div className="absolute bottom-2.5 left-2.5 min-[380px]:bottom-3.5 min-[380px]:left-3.5 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md px-2.5 min-[380px]:px-3.5 py-1 min-[380px]:py-1.5 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 max-w-[calc(100%-120px)]">
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping shrink-0" />
-              <span className="text-[10px] min-[380px]:text-xs font-bold text-pink-900 truncate">12/12/2026 • Castelo Agriões</span>
+              <span className="text-[10px] min-[380px]:text-xs font-bold text-pink-900 truncate">
+                {photoView === 'real' ? '👑 Laura & Olívia • 12/12/2026' : '🏰 Castelo Real • 12/12/2026'}
+              </span>
             </div>
+
+            {/* Botão de Alternância de Foto (Foto Real vs Arte do Castelo) */}
+            <button
+              onClick={() => setPhotoView(photoView === 'real' ? 'castle' : 'real')}
+              className="absolute bottom-2.5 right-2.5 min-[380px]:bottom-3.5 min-[380px]:right-3.5 sm:bottom-4 sm:right-4 bg-white/95 hover:bg-pink-50 active:bg-pink-100 text-pink-800 text-[10px] min-[380px]:text-xs font-bold py-1 min-[380px]:py-1.5 px-2.5 min-[380px]:px-3 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 transition-all duration-200 cursor-pointer backdrop-blur-md"
+              title="Alternar entre a foto real e a arte do castelo"
+            >
+              {photoView === 'real' ? (
+                <>
+                  <Castle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <span className="hidden min-[360px]:inline">Ver Castelo</span>
+                </>
+              ) : (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-pink-600 shrink-0" />
+                  <span className="hidden min-[360px]:inline">Ver Foto Real</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
 
@@ -93,7 +124,7 @@ export const Hero: FC<HeroProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
           <button
             onClick={onScrollToRSVP}
-            className="w-full sm:w-auto min-h-[48px] px-6 sm:px-8 py-3.5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 active:from-pink-700 active:to-rose-700 text-white font-extrabold text-base rounded-full shadow-lg shadow-pink-300/60 transform transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
+            className="w-full sm:w-auto min-h-[48px] px-6 sm:px-8 py-3.5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 active:from-pink-700 active:to-rose-700 text-white font-extrabold text-base rounded-full shadow-lg shadow-pink-300/60 transform transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
           >
             <Heart className="w-5 h-5 fill-white text-white shrink-0" />
             <span>Confirmar Presença (RSVP)</span>

@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Heart, Crown, ShieldCheck } from 'lucide-react'
+import { Heart, ShieldCheck } from 'lucide-react'
 
 interface FooterProps {
   onOpenOrganizer: () => void
@@ -10,9 +10,18 @@ export const Footer: FC<FooterProps> = ({ onOpenOrganizer }) => {
     <footer className="mt-16 border-t border-pink-200/80 bg-white/60 backdrop-blur-md py-10 px-4 text-center">
       <div className="max-w-4xl mx-auto space-y-4">
         
-        {/* Brasão */}
-        <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-pink-100 text-pink-600 shadow-sm">
-          <Crown className="w-5 h-5 text-amber-500" />
+        {/* Brasão Real com Foto */}
+        <div className="relative inline-block">
+          <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-amber-300 shadow-md bg-pink-100 mx-auto">
+            <img
+              src="./laura-e-olivia.jpg"
+              alt="Laura e Olívia"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+          <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-400 text-white flex items-center justify-center text-[10px] shadow">
+            👑
+          </div>
         </div>
 
         <h3 className="text-xl font-bold text-pink-900 font-serif">

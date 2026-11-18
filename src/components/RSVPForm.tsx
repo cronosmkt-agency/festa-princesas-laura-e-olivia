@@ -384,9 +384,21 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
             {/* Resumo do Passe Real */}
             {submittedData.attending === 'yes' && (
               <div className="p-5 bg-gradient-to-br from-pink-50 to-amber-50 rounded-2xl border border-pink-200 text-left text-sm space-y-2.5 max-w-md mx-auto shadow-sm">
-                <div className="flex items-center justify-between pb-2 border-b border-pink-200">
-                  <span className="font-bold text-pink-900 font-serif">Passe Real de Acesso</span>
-                  <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-full uppercase">
+                <div className="flex items-center justify-between pb-3 border-b border-pink-200">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-300 shadow-sm shrink-0 bg-pink-100">
+                      <img
+                        src="./laura-e-olivia.jpg"
+                        alt="Princesas Laura & Olívia"
+                        className="w-full h-full object-cover object-center"
+                      />
+                    </div>
+                    <div>
+                      <span className="font-bold text-pink-900 font-serif block text-sm">Passe Real de Acesso</span>
+                      <span className="text-[10px] text-pink-600 font-medium">Laura & Olívia • 1º Aninho</span>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider">
                     Confirmado
                   </span>
                 </div>
