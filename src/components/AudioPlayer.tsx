@@ -88,7 +88,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
         navigator.mediaSession.metadata = new MediaMetadata({
           title: 'Festa das Gêmeas 👑',
           artist: 'Laura & Olívia',
-          album: '1º Aninho Real das Princesas',
+          album: '1° Aninho das Princesas',
           artwork: [
             { src: resolveUrl('laura-e-olivia.jpg'), sizes: '512x512', type: 'image/jpeg' },
             { src: resolveUrl('cover.jpg'), sizes: '192x192', type: 'image/jpeg' },
@@ -163,7 +163,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
           <button
             onClick={() => setIsCollapsed(false)}
             className="flex items-center gap-2 p-2.5 bg-white/95 hover:bg-pink-50 text-pink-700 rounded-full shadow-2xl border-2 border-pink-300/80 backdrop-blur-md cursor-pointer transition-transform hover:scale-105 active:scale-95 group"
-            title="Expandir tocador da Canção Real"
+            title="Expandir tocador de música"
             aria-label="Expandir tocador da música"
           >
             <div className="relative flex items-center justify-center">
@@ -191,7 +191,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
             title="Ver a letra da canção de Laura & Olívia"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-spin" style={{ animationDuration: '6s' }} />
-            <span>Letra da Canção Real</span>
+            <span>Letra da Canção</span>
           </button>
 
           {/* Card Flutuante Principal */}
@@ -200,7 +200,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
             <button
               onClick={onTogglePlay}
               className="flex items-center gap-2 p-1 rounded-full hover:bg-pink-50 transition-colors cursor-pointer text-left focus:outline-none"
-              title={isPlaying ? 'Pausar Canção Real' : 'Tocar Canção Real'}
+              title={isPlaying ? 'Pausar Canção' : 'Tocar Canção'}
               aria-label={isPlaying ? 'Pausar Canção' : 'Tocar Canção'}
             >
               <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-pink-100 text-pink-600">

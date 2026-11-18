@@ -25,7 +25,7 @@ export const Footer: FC<FooterProps> = ({ onOpenOrganizer }) => {
         </div>
 
         <h3 className="text-xl font-bold text-pink-900 font-serif">
-          Laura & Olívia • 1º Aninho Real
+          Laura & Olívia • 1° Aninho
         </h3>
 
         <p className="text-xs text-stone-500 max-w-sm mx-auto">

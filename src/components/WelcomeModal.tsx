@@ -1,11 +1,11 @@
 import type { FC } from 'react'
 import confetti from 'canvas-confetti'
 import { Sparkles, Crown, Music } from 'lucide-react'
-import { unlockAndPlayAudio, pauseAudio } from './AudioPlayer'
+import { unlockAndPlayAudio } from './AudioPlayer'
 
 interface WelcomeModalProps {
   isOpen: boolean
-  onOpenInvite: (withSound: boolean) => void
+  onOpenInvite: () => void
 }
 
 export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) => {
@@ -15,7 +15,7 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
     // 1. Inicia o áudio imediatamente no contexto do clique do usuário (essencial para iOS Safari)
     unlockAndPlayAudio()
 
-    // 2. Dispara a chuva real de confetes
+    // 2. Dispara chuva de confetes
     try {
       confetti({
         particleCount: 90,
@@ -28,12 +28,7 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
     }
 
     // 3. Notifica o estado principal da aplicação
-    onOpenInvite(true)
-  }
-
-  const handleOpenSilent = () => {
-    pauseAudio()
-    onOpenInvite(false)
+    onOpenInvite()
   }
 
   return (
@@ -45,7 +40,7 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
     >
       <div className="relative w-full max-w-md my-auto max-h-[92dvh] overflow-y-auto bg-gradient-to-b from-white via-pink-50/95 to-amber-50/95 rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-amber-200/90 text-center transform transition-all duration-500 scale-100">
         
-        {/* Brasão Real com Foto das Princesas */}
+        {/* Brasão com Foto das Princesas */}
         <div className="relative mx-auto w-24 h-24 -mt-16 mb-3 rounded-full p-1 bg-gradient-to-tr from-amber-400 via-pink-300 to-amber-200 shadow-xl border-4 border-white">
           <div className="w-full h-full rounded-full overflow-hidden bg-pink-100">
             <img
@@ -62,38 +57,31 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
 
         {/* Tag de Chamada */}
         <span className="inline-block px-3.5 py-1 bg-pink-100 text-pink-700 text-[11px] font-bold rounded-full tracking-widest uppercase mb-2">
-          Decreto Real de Aniversário 📜
+          Convite Especial de Aniversário 🎀
         </span>
 
         {/* Título Principal */}
         <h2 id="modal-title" className="text-3xl font-extrabold text-pink-900 font-serif mb-1">
-          Convite Real
+          Laura & Olívia
         </h2>
         
         <p className="font-script text-2xl sm:text-3xl text-amber-700 mb-3">
-          Laura & Olívia
+          1° Aninho das Princesas
         </p>
 
         <p className="text-sm text-stone-600 mb-6 px-2 leading-relaxed font-medium">
-          Você foi cordialmente convidado para comemorar o <strong className="text-pink-800 font-bold">1º Aninho de Vida</strong> das nossas pequenas princesas em um dia mágico e inesquecível!
+          Você foi cordialmente convidado para comemorar o <strong className="text-pink-800 font-bold">1° aninho de vida</strong> das nossas pequenas princesas em um dia mágico e inesquecível!
         </p>
 
-        {/* Botões de Ação com áreas de toque adequadas para mobile */}
-        <div className="space-y-3">
+        {/* Botão Único: Entrar na Festa com Música */}
+        <div>
           <button
             onClick={handleOpenWithSound}
-            className="w-full group min-h-[52px] py-3.5 px-6 bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-600 hover:via-rose-600 hover:to-amber-600 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-pink-400/40 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-300"
+            className="w-full group min-h-[54px] py-3.5 px-6 bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-600 hover:via-rose-600 hover:to-amber-600 active:scale-98 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-pink-400/40 transform transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-300"
           >
             <Music className="w-5 h-5 group-hover:animate-bounce" />
-            <span>Abrir Convite com Música 🎵</span>
+            <span>Abrir Convite 🎵</span>
             <Sparkles className="w-4 h-4 text-yellow-200" />
-          </button>
-
-          <button
-            onClick={handleOpenSilent}
-            className="w-full min-h-[44px] py-2.5 px-4 text-xs sm:text-sm font-semibold text-stone-500 hover:text-stone-800 transition-colors cursor-pointer rounded-xl hover:bg-stone-100/50"
-          >
-            Abrir sem música
           </button>
         </div>
 

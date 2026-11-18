@@ -56,9 +56,9 @@ export const EventDetails: FC = () => {
 
   // Link direto para Google Agenda
   const createGoogleCalendarUrl = () => {
-    const title = encodeURIComponent('👑 1º Aninho Real das Princesas Laura & Olívia')
+    const title = encodeURIComponent('👑 1° Aninho das Princesas Laura & Olívia')
     const details = encodeURIComponent(
-      'Festa de aniversário de 1 ano das princesas Laura & Olívia no Salão Castelo Agriões!\nEsperamos você com muita alegria, brincadeiras e doces do reino real.'
+      'Festa de aniversário de 1 ano das princesas Laura & Olívia no Salão Castelo Agriões!\nEsperamos você com muita alegria, brincadeiras e doces da festa.'
     )
     const loc = encodeURIComponent(`${venueName} - ${fullAddress}`)
     // 12/12/2026 das 15:30 às 20:30 (Horário de Brasília: UTC-3 -> 18:30 às 23:30 UTC)
@@ -68,7 +68,7 @@ export const EventDetails: FC = () => {
 
   // Link direto para Outlook Web
   const createOutlookCalendarUrl = () => {
-    const title = encodeURIComponent('👑 1º Aninho Real das Princesas Laura & Olívia')
+    const title = encodeURIComponent('👑 1° Aninho das Princesas Laura & Olívia')
     const details = encodeURIComponent(
       'Festa de 1 ano das princesas Laura & Olívia no Salão Castelo Agriões!'
     )
@@ -89,7 +89,7 @@ export const EventDetails: FC = () => {
       'DTSTAMP:20261116T120000Z',
       'DTSTART:20261212T183000Z',
       'DTEND:20261212T233000Z',
-      'SUMMARY:👑 1º Aninho Real das Princesas Laura & Olívia',
+      'SUMMARY:👑 1° Aninho das Princesas Laura & Olívia',
       'DESCRIPTION:Festa de 1 aninho das princesas Laura & Olívia no Salão Castelo Agriões!',
       `LOCATION:${venueName} - ${fullAddress}`,
       'STATUS:CONFIRMED',
@@ -117,10 +117,10 @@ export const EventDetails: FC = () => {
     <section id="local" className="py-12 px-4 max-w-4xl mx-auto">
       <div className="text-center mb-8">
         <span className="inline-block px-3.5 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full uppercase tracking-wider mb-2">
-          Coordenadas do Reino 🏰
+          Local da Festa 🏰
         </span>
         <h2 className="text-3xl sm:text-4xl font-bold text-pink-900 font-serif">
-          Local da Celebração Real
+          Local da Celebração
         </h2>
         <p className="text-sm text-stone-600 mt-1.5 max-w-md mx-auto">
           Um castelo encantado preparado para receber cada um dos nossos convidados de honra!

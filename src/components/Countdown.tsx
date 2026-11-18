@@ -43,7 +43,7 @@ export const Countdown: FC = () => {
         
         <div className="inline-flex items-center gap-1.5 sm:gap-2 text-pink-700 text-[11px] min-[380px]:text-xs font-bold tracking-wider sm:tracking-widest uppercase mb-2.5 sm:mb-3 max-w-full flex-wrap justify-center">
           <Hourglass className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 animate-spin shrink-0" style={{ animationDuration: '10s' }} />
-          <span>Contagem Regressiva para a Festa Real</span>
+          <span>Contagem Regressiva para o 1° Aninho</span>
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
         </div>
 

@@ -1,4 +1,4 @@
-# 👑 Festa das Princesas • 1º Aninho Real das Gêmeas Laura & Olívia
+# 👑 Festa das Princesas • 1° Aninho das Gêmeas Laura & Olívia
 
 Site oficial e convite digital interativo para a comemoração de **1 ano de vida** das princesas **Laura e Olívia**.
 

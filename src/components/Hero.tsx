@@ -33,7 +33,7 @@ export const Hero: FC<HeroProps> = ({
         <div className="inline-flex items-center gap-1.5 min-[380px]:gap-2 px-3 min-[380px]:px-4 py-1.5 bg-gradient-to-r from-pink-100 via-amber-50 to-pink-100 rounded-full border border-pink-200 shadow-sm mb-3 sm:mb-4 animate-float max-w-full">
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
           <span className="text-[11px] min-[380px]:text-xs sm:text-sm font-bold text-pink-800 tracking-wider uppercase truncate">
-            Festa das Princesas • 1º Aninho Real
+            Festa das Princesas • 1° Aninho
           </span>
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
         </div>
@@ -47,12 +47,12 @@ export const Hero: FC<HeroProps> = ({
           Um ano de pura doçura e alegria!
         </p>
 
-        {/* Imagem das Princesas em Moldura Real */}
+        {/* Imagem das Princesas em Moldura Especial */}
         <div className="relative max-w-2xl mx-auto mb-6 sm:mb-8 rounded-2xl min-[380px]:rounded-3xl p-1.5 min-[380px]:p-2.5 sm:p-3 bg-gradient-to-tr from-amber-300 via-pink-200 to-amber-200 shadow-2xl royal-shadow transform transition-all duration-500 hover:scale-[1.01]">
           <div className="overflow-hidden rounded-xl min-[380px]:rounded-2xl relative group bg-pink-100">
             <img
               src={photoView === 'real' ? './laura-e-olivia.jpg' : './hero-princesas.jpg'}
-              alt="Princesas Laura e Olívia - 1º Aninho"
+              alt="Princesas Laura e Olívia - 1° Aninho"
               className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
             />
             {/* Overlay sutil */}
@@ -62,15 +62,15 @@ export const Hero: FC<HeroProps> = ({
             <div className="absolute bottom-2.5 left-2.5 min-[380px]:bottom-3.5 min-[380px]:left-3.5 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md px-2.5 min-[380px]:px-3.5 py-1 min-[380px]:py-1.5 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 max-w-[calc(100%-120px)]">
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping shrink-0" />
               <span className="text-[10px] min-[380px]:text-xs font-bold text-pink-900 truncate">
-                {photoView === 'real' ? '👑 Laura & Olívia • 12/12/2026' : '🏰 Castelo Real • 12/12/2026'}
+                {photoView === 'real' ? '👑 Laura & Olívia • 12/12/2026' : '🏰 Castelo • 12/12/2026'}
               </span>
             </div>
 
-            {/* Botão de Alternância de Foto (Foto Real vs Arte do Castelo) */}
+            {/* Botão de Alternância de Foto */}
             <button
               onClick={() => setPhotoView(photoView === 'real' ? 'castle' : 'real')}
               className="absolute bottom-2.5 right-2.5 min-[380px]:bottom-3.5 min-[380px]:right-3.5 sm:bottom-4 sm:right-4 bg-white/95 hover:bg-pink-50 active:bg-pink-100 text-pink-800 text-[10px] min-[380px]:text-xs font-bold py-1 min-[380px]:py-1.5 px-2.5 min-[380px]:px-3 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 transition-all duration-200 cursor-pointer backdrop-blur-md"
-              title="Alternar entre a foto real e a arte do castelo"
+              title="Alternar entre a foto e a arte do castelo"
             >
               {photoView === 'real' ? (
                 <>
@@ -80,7 +80,7 @@ export const Hero: FC<HeroProps> = ({
               ) : (
                 <>
                   <ImageIcon className="w-3.5 h-3.5 text-pink-600 shrink-0" />
-                  <span className="hidden min-[360px]:inline">Ver Foto Real</span>
+                  <span className="hidden min-[360px]:inline">Ver Foto</span>
                 </>
               )}
             </button>
@@ -94,7 +94,7 @@ export const Hero: FC<HeroProps> = ({
               <Calendar className="w-5 h-5" />
             </div>
             <div className="text-left">
-              <p className="text-[10px] uppercase font-bold text-stone-400 tracking-wider">Data Real</p>
+              <p className="text-[10px] uppercase font-bold text-stone-400 tracking-wider">Data</p>
               <p className="text-sm font-bold text-stone-800">12 de Dezembro, 2026</p>
             </div>
           </div>
@@ -120,29 +120,33 @@ export const Hero: FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Botões de Ação */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+        {/* Botões de Ação em Linha Única (Mobile & Desktop) */}
+        <div className="flex flex-row items-center justify-between gap-1.5 min-[380px]:gap-2 sm:gap-3 max-w-xl mx-auto w-full px-1">
+          {/* Botão 1: Confirmar Presença */}
           <button
             onClick={onScrollToRSVP}
-            className="w-full sm:w-auto min-h-[48px] px-6 sm:px-8 py-3.5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 active:from-pink-700 active:to-rose-700 text-white font-extrabold text-base rounded-full shadow-lg shadow-pink-300/60 transform transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
+            className="flex-1 min-w-0 min-h-[46px] sm:min-h-[50px] px-2 min-[380px]:px-3 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 active:scale-95 text-white font-extrabold text-xs min-[380px]:text-sm sm:text-base rounded-full shadow-lg shadow-pink-300/50 flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer touch-manipulation"
           >
-            <Heart className="w-5 h-5 fill-white text-white shrink-0" />
-            <span>Confirmar Presença (RSVP)</span>
+            <Heart className="w-3.5 h-3.5 min-[380px]:w-4 min-[380px]:h-4 fill-white shrink-0" />
+            <span className="truncate">Confirmar<span className="hidden min-[430px]:inline"> Presença</span></span>
           </button>
 
+          {/* Botão 2: Localização */}
           <button
             onClick={onScrollToLocation}
-            className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 bg-white/95 hover:bg-pink-50 active:bg-pink-100 text-pink-700 font-bold text-base rounded-full shadow-md border border-pink-200 transition-all duration-200 active:scale-98 flex items-center justify-center cursor-pointer touch-manipulation"
+            className="flex-1 min-w-0 min-h-[46px] sm:min-h-[50px] px-2 min-[380px]:px-3 sm:px-4 py-2.5 sm:py-3 bg-white/95 hover:bg-pink-50 active:scale-95 text-pink-700 font-bold text-xs min-[380px]:text-sm sm:text-base rounded-full shadow-md border border-pink-200 flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer touch-manipulation"
           >
-            Ver Localização
+            <MapPin className="w-3.5 h-3.5 min-[380px]:w-4 min-[380px]:h-4 text-pink-500 shrink-0" />
+            <span className="truncate">Local<span className="hidden min-[430px]:inline">ização</span></span>
           </button>
 
+          {/* Botão 3: Canção (Sem 'Real'!) */}
           <button
             onClick={onOpenLyrics}
-            className="w-full sm:w-auto min-h-[48px] px-5 py-3.5 bg-pink-100/90 hover:bg-pink-200 active:bg-pink-300/80 text-pink-800 font-bold text-sm rounded-full border border-pink-200 transition-all duration-200 active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation"
+            className="flex-1 min-w-0 min-h-[46px] sm:min-h-[50px] px-2 min-[380px]:px-3 sm:px-4 py-2.5 sm:py-3 bg-pink-100/90 hover:bg-pink-200 active:scale-95 text-pink-800 font-bold text-xs min-[380px]:text-sm sm:text-base rounded-full border border-pink-200/90 flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer touch-manipulation"
           >
-            <Music className="w-4 h-4 text-pink-600 shrink-0" />
-            <span>Canção Real</span>
+            <Music className="w-3.5 h-3.5 min-[380px]:w-4 min-[380px]:h-4 text-pink-600 shrink-0" />
+            <span className="truncate">Canção</span>
           </button>
         </div>
 

@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { WelcomeModal } from './components/WelcomeModal'
-import { AudioPlayer } from './components/AudioPlayer'
+import { AudioPlayer, unlockAndPlayAudio } from './components/AudioPlayer'
 import { LyricsModal } from './components/LyricsModal'
 import { OrganizerModal } from './components/OrganizerModal'
 import { Hero } from './components/Hero'
 import { Countdown } from './components/Countdown'
-import { StorySection } from './components/StorySection'
 import { EventDetails } from './components/EventDetails'
 import { RSVPForm } from './components/RSVPForm'
 import { Footer } from './components/Footer'
@@ -17,11 +16,41 @@ export function App() {
   const [isLyricsOpen, setIsLyricsOpen] = useState(false)
   const [isOrganizerOpen, setIsOrganizerOpen] = useState(false)
 
-  const handleOpenInvite = (withSound: boolean) => {
-    setIsWelcomeOpen(false)
-    if (withSound) {
-      setIsPlaying(true)
+  // Iniciar a música cantando imediatamente assim que abrir o site
+  useEffect(() => {
+    // 1. Tentar iniciar o áudio direto no carregamento se o navegador permitir
+    const audioPromise = unlockAndPlayAudio()
+    if (audioPromise) {
+      audioPromise
+        .then(() => {
+          setIsPlaying(true)
+          setIsWelcomeOpen(false)
+        })
+        .catch(() => {
+          // Autoplay com som bloqueado por política de segurança do browser até o primeiro toque
+        })
     }
+
+    // 2. No primeiríssimo clique ou toque na tela em qualquer lugar, desbloquear áudio e tocar
+    const handleFirstGesture = () => {
+      unlockAndPlayAudio()
+      setIsPlaying(true)
+      setIsWelcomeOpen(false)
+    }
+
+    window.addEventListener('click', handleFirstGesture, { once: true })
+    window.addEventListener('touchstart', handleFirstGesture, { once: true })
+
+    return () => {
+      window.removeEventListener('click', handleFirstGesture)
+      window.removeEventListener('touchstart', handleFirstGesture)
+    }
+  }, [])
+
+  const handleOpenInvite = () => {
+    unlockAndPlayAudio()
+    setIsWelcomeOpen(false)
+    setIsPlaying(true)
   }
 
   const handleTogglePlay = () => {
@@ -48,7 +77,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50/60 via-pink-50/30 to-amber-50/40 text-stone-800 relative selection:bg-pink-300 selection:text-white">
-      {/* Modal de Abertura do Convite Real */}
+      {/* Modal de Abertura do Convite (Sem opção de silêncio, entra cantando) */}
       <WelcomeModal
         isOpen={isWelcomeOpen}
         onOpenInvite={handleOpenInvite}
@@ -82,10 +111,6 @@ export function App() {
         />
 
         <Countdown />
-
-        <StorySection
-          onOpenLyrics={() => setIsLyricsOpen(true)}
-        />
 
         <EventDetails />
 

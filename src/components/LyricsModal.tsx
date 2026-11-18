@@ -117,7 +117,7 @@ export const LyricsModal: FC<LyricsModalProps> = ({ isOpen, onClose }) => {
           {/* Refrão com destaque */}
           <div className="p-4 bg-gradient-to-r from-pink-200/70 via-amber-100/70 to-purple-200/70 rounded-2xl border border-pink-300 shadow-sm space-y-1.5 font-bold text-pink-950">
             <p className="text-xs text-amber-900 uppercase tracking-wider font-extrabold flex items-center justify-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> Refrão Real <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5" /> Refrão <Sparkles className="w-3.5 h-3.5" />
             </p>
             <p className="text-base sm:text-lg text-pink-700">👑 Pula, pula, Laura! Dança sem parar!</p>
             <p className="text-base sm:text-lg text-purple-700">✨ Gira, gira, Olívia! Vamos celebrar!</p>
@@ -151,7 +151,7 @@ export const LyricsModal: FC<LyricsModalProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="min-h-[44px] px-7 py-2.5 bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white font-bold text-sm rounded-full shadow-lg shadow-pink-300/50 transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
-            Voltar ao Convite Real ✨
+            Voltar ao Convite ✨
           </button>
         </div>
       </div>

@@ -162,7 +162,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
     }
 
     if (!attending) {
-      newErrors.attending = 'Por favor, indique se comparecerá à festa real.'
+      newErrors.attending = 'Por favor, indique se você comparecerá à festa.'
       isValid = false
     }
 
@@ -270,8 +270,8 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
   const getWhatsAppMessageText = (): string => {
     if (!submittedData) return ''
 
-    let text = `👑 *CONFIRMAÇÃO DE PRESENÇA - FESTA REAL DAS GÊMEAS* 👑\n`
-    text += `*Laura & Olívia • 1º Aninho Real*\n\n`
+    let text = `👑 *CONFIRMAÇÃO DE PRESENÇA - FESTA DAS PRINCESAS* 👑\n`
+    text += `*Laura & Olívia • 1° Aninho*\n\n`
     text += `👤 *Convidado(a):* ${submittedData.guestName}\n`
     text += `📱 *Telefone/WhatsApp:* ${submittedData.phone}\n`
 
@@ -345,7 +345,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-pink-100 rounded-full text-pink-700 text-xs font-bold uppercase tracking-wider mb-2">
             <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500" />
-            <span>Confirmação de Presença Real</span>
+            <span>Confirmação de Presença</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-pink-900 font-serif">
@@ -394,8 +394,8 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
                       />
                     </div>
                     <div>
-                      <span className="font-bold text-pink-900 font-serif block text-sm">Passe Real de Acesso</span>
-                      <span className="text-[10px] text-pink-600 font-medium">Laura & Olívia • 1º Aninho</span>
+                      <span className="font-bold text-pink-900 font-serif block text-sm">Passe de Acesso</span>
+                      <span className="text-[10px] text-pink-600 font-medium">Laura & Olívia • 1° Aninho</span>
                     </div>
                   </div>
                   <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider">
@@ -548,7 +548,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
             {/* Você vai comparecer? */}
             <div>
               <label className="block text-xs sm:text-sm font-bold text-stone-800 mb-2">
-                Você vai comparecer à Festa Real? <span className="text-rose-500">*</span>
+                Você vai comparecer à festa? <span className="text-rose-500">*</span>
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -888,7 +888,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
               }`}
             >
               <Send className="w-5 h-5" />
-              <span>Confirmar Presença Real</span>
+              <span>Confirmar Presença</span>
             </button>
           </form>
         )}
