@@ -88,7 +88,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
         navigator.mediaSession.metadata = new MediaMetadata({
           title: 'Festa das Gêmeas 👑',
           artist: 'Laura & Olívia',
-          album: '1° Aninho das Princesas',
+          album: '1° Aninho • Princesas da Disney',
           artwork: [
             { src: resolveUrl('laura-e-olivia.jpg'), sizes: '512x512', type: 'image/jpeg' },
             { src: resolveUrl('cover.jpg'), sizes: '192x192', type: 'image/jpeg' },

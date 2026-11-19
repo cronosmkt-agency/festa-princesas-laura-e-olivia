@@ -57,7 +57,7 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
 
         {/* Tag de Chamada */}
         <span className="inline-block px-3.5 py-1 bg-pink-100 text-pink-700 text-[11px] font-bold rounded-full tracking-widest uppercase mb-2">
-          Convite Especial de Aniversário 🎀
+          Reino Encantado da Disney 🏰✨
         </span>
 
         {/* Título Principal */}
@@ -66,11 +66,11 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
         </h2>
         
         <p className="font-script text-2xl sm:text-3xl text-amber-700 mb-3">
-          1° Aninho das Princesas
+          1° Aninho • Princesas da Disney
         </p>
 
         <p className="text-sm text-stone-600 mb-6 px-2 leading-relaxed font-medium">
-          Você foi cordialmente convidado para comemorar o <strong className="text-pink-800 font-bold">1° aninho de vida</strong> das nossas pequenas princesas em um dia mágico e inesquecível!
+          Você foi cordialmente convidado para comemorar o <strong className="text-pink-800 font-bold">1° aninho de vida</strong> de Laura & Olívia em uma tarde mágica no mundo das Princesas da Disney!
         </p>
 
         {/* Botão Único: Entrar na Festa com Música */}
@@ -80,7 +80,7 @@ export const WelcomeModal: FC<WelcomeModalProps> = ({ isOpen, onOpenInvite }) =>
             className="w-full group min-h-[54px] py-3.5 px-6 bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-600 hover:via-rose-600 hover:to-amber-600 active:scale-98 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-pink-400/40 transform transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-300"
           >
             <Music className="w-5 h-5 group-hover:animate-bounce" />
-            <span>Abrir Convite 🎵</span>
+            <span>Entrar no Reino da Disney 🎵</span>
             <Sparkles className="w-4 h-4 text-yellow-200" />
           </button>
         </div>

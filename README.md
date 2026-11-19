@@ -1,4 +1,4 @@
-# 👑 Festa das Princesas • 1° Aninho das Gêmeas Laura & Olívia
+# 👑 Festa das Princesas da Disney • 1° Aninho das Gêmeas Laura & Olívia
 
 Site oficial e convite digital interativo para a comemoração de **1 ano de vida** das princesas **Laura e Olívia**.
 
@@ -12,7 +12,7 @@ Site oficial e convite digital interativo para a comemoração de **1 ano de vid
 ## 🏰 Informações do Evento
 
 - **Aniversariantes:** Laura & Olívia (1 aninho)
-- **Tema:** Festa das Princesas 👑✨
+- **Tema:** Festa das Princesas da Disney 👑✨🏰
 - **Data:** Sábado, 12 de Dezembro de 2026
 - **Horário:** 15h30 (pontual)
 - **Local:** Salão Castelo Agriões

@@ -33,7 +33,7 @@ export const Hero: FC<HeroProps> = ({
         <div className="inline-flex items-center gap-1.5 min-[380px]:gap-2 px-3 min-[380px]:px-4 py-1.5 bg-gradient-to-r from-pink-100 via-amber-50 to-pink-100 rounded-full border border-pink-200 shadow-sm mb-3 sm:mb-4 animate-float max-w-full">
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
           <span className="text-[11px] min-[380px]:text-xs sm:text-sm font-bold text-pink-800 tracking-wider uppercase truncate">
-            Festa das Princesas • 1° Aninho
+            Festa das Princesas da Disney • 1° Aninho
           </span>
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
         </div>
@@ -43,16 +43,27 @@ export const Hero: FC<HeroProps> = ({
           Laura & Olívia
         </h1>
 
-        <p className="font-script text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl text-amber-600 mb-5 sm:mb-6 drop-shadow-sm leading-snug">
-          Um ano de pura doçura e alegria!
+        <p className="font-script text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl text-amber-600 mb-2 drop-shadow-sm leading-snug">
+          Um reino mágico de doçura e alegria!
         </p>
+
+        {/* Selo Mágico Princesas da Disney */}
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full border border-pink-200/90 text-pink-700 text-[11px] sm:text-xs font-bold mb-5 shadow-xs">
+          <span>👑 Cinderela</span>
+          <span>•</span>
+          <span>🌹 Bela</span>
+          <span>•</span>
+          <span>🧜‍♀️ Ariel</span>
+          <span>•</span>
+          <span>🌸 Laura & Olívia</span>
+        </div>
 
         {/* Imagem das Princesas em Moldura Especial */}
         <div className="relative max-w-2xl mx-auto mb-6 sm:mb-8 rounded-2xl min-[380px]:rounded-3xl p-1.5 min-[380px]:p-2.5 sm:p-3 bg-gradient-to-tr from-amber-300 via-pink-200 to-amber-200 shadow-2xl royal-shadow transform transition-all duration-500 hover:scale-[1.01]">
           <div className="overflow-hidden rounded-xl min-[380px]:rounded-2xl relative group bg-pink-100">
             <img
               src={photoView === 'real' ? './laura-e-olivia.jpg' : './hero-princesas.jpg'}
-              alt="Princesas Laura e Olívia - 1° Aninho"
+              alt="Princesas Laura e Olívia - 1° Aninho das Princesas da Disney"
               className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
             />
             {/* Overlay sutil */}
@@ -62,7 +73,7 @@ export const Hero: FC<HeroProps> = ({
             <div className="absolute bottom-2.5 left-2.5 min-[380px]:bottom-3.5 min-[380px]:left-3.5 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md px-2.5 min-[380px]:px-3.5 py-1 min-[380px]:py-1.5 rounded-full shadow-md border border-pink-200 flex items-center gap-1.5 max-w-[calc(100%-120px)]">
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping shrink-0" />
               <span className="text-[10px] min-[380px]:text-xs font-bold text-pink-900 truncate">
-                {photoView === 'real' ? '👑 Laura & Olívia • 12/12/2026' : '🏰 Castelo • 12/12/2026'}
+                {photoView === 'real' ? '👑 Princesas Laura & Olívia • 12/12' : '🏰 Castelo Encantado da Disney'}
               </span>
             </div>
 

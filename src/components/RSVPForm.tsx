@@ -276,7 +276,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
   const getWhatsAppMessageText = (): string => {
     if (!submittedData) return ''
 
-    let text = `👑 *CONFIRMAÇÃO DE PRESENÇA - FESTA DAS PRINCESAS* 👑\n`
+    let text = `👑 *CONFIRMAÇÃO DE PRESENÇA - FESTA DAS PRINCESAS DA DISNEY* 👑\n`
     text += `*Laura & Olívia • 1° Aninho*\n\n`
     text += `👤 *Convidado(a):* ${submittedData.guestName}\n`
     text += `📱 *Telefone/WhatsApp:* ${submittedData.phone}\n`
@@ -351,15 +351,15 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-pink-100 rounded-full text-pink-700 text-xs font-bold uppercase tracking-wider mb-2">
             <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500" />
-            <span>Confirmação de Presença</span>
+            <span>Confirmação de Presença • Princesas da Disney</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-pink-900 font-serif">
-            Confirme Sua Presença 💌
+            Confirme Sua Presença no Baile 💌
           </h2>
 
           <p className="text-sm text-stone-600 mt-2 max-w-lg mx-auto font-medium">
-            Para que o reino das princesas possa preparar cada detalhe com amor e carinho, por favor confirme sua presença!
+            Para que o reino das princesas da Disney possa preparar cada detalhe com amor e carinho, por favor confirme sua presença!
           </p>
 
           <p className="text-xs text-amber-700 font-semibold mt-1">
@@ -382,7 +382,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
               </h3>
               <p className="text-sm text-stone-600 font-medium">
                 {submittedData.attending === 'yes'
-                  ? `Obrigado, ${submittedData.guestName}! As princesas Laura & Olívia estão ansiosas para te ver!`
+                  ? `Obrigado, ${submittedData.guestName}! As princesas da Disney Laura & Olívia estão ansiosas para te ver!`
                   : `Sentiremos sua falta, ${submittedData.guestName}! O seu recado carinhoso foi registrado.`}
               </p>
             </div>
@@ -401,7 +401,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
                     </div>
                     <div>
                       <span className="font-bold text-pink-900 font-serif block text-sm">Passe de Acesso</span>
-                      <span className="text-[10px] text-pink-600 font-medium">Laura & Olívia • 1° Aninho</span>
+                      <span className="text-[10px] text-pink-600 font-medium">Laura & Olívia • Princesas da Disney</span>
                     </div>
                   </div>
                   <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider">
@@ -859,7 +859,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Escreva sua mensagem de bênçãos e carinho para o 1º aninho das princesas..."
+                    placeholder="Escreva sua mensagem de carinho para o 1° aninho de Laura & Olívia..."
                     rows={3}
                     className="w-full min-h-[80px] px-4 py-3 rounded-2xl border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 text-base sm:text-sm bg-white"
                   />
@@ -871,7 +871,7 @@ export const RSVPForm: FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
             {attending === 'no' && (
               <div className="pt-2 animate-fade-in">
                 <label className="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">
-                  Gostaria de deixar uma mensagem carinhosa para as princesas? (Opcional):
+                  Gostaria de deixar uma mensagem carinhosa para as princesas da Disney Laura & Olívia? (Opcional):
                 </label>
                 <textarea
                   value={message}

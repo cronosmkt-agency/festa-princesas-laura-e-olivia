@@ -56,9 +56,9 @@ export const EventDetails: FC = () => {
 
   // Link direto para Google Agenda
   const createGoogleCalendarUrl = () => {
-    const title = encodeURIComponent('👑 1° Aninho das Princesas Laura & Olívia')
+    const title = encodeURIComponent('👑 1° Aninho das Princesas da Disney • Laura & Olívia')
     const details = encodeURIComponent(
-      'Festa de aniversário de 1 ano das princesas Laura & Olívia no Salão Castelo Agriões!\nEsperamos você com muita alegria, brincadeiras e doces da festa.'
+      'Festa de aniversário de 1 ano de Laura & Olívia com o tema Princesas da Disney no Salão Castelo Agriões!\nEsperamos você para viver um dia mágico de conto de fadas.'
     )
     const loc = encodeURIComponent(`${venueName} - ${fullAddress}`)
     // 12/12/2026 das 15:30 às 20:30 (Horário de Brasília: UTC-3 -> 18:30 às 23:30 UTC)
@@ -68,9 +68,9 @@ export const EventDetails: FC = () => {
 
   // Link direto para Outlook Web
   const createOutlookCalendarUrl = () => {
-    const title = encodeURIComponent('👑 1° Aninho das Princesas Laura & Olívia')
+    const title = encodeURIComponent('👑 1° Aninho das Princesas da Disney • Laura & Olívia')
     const details = encodeURIComponent(
-      'Festa de 1 ano das princesas Laura & Olívia no Salão Castelo Agriões!'
+      'Festa de 1 ano das princesas da Disney Laura & Olívia no Salão Castelo Agriões!'
     )
     const loc = encodeURIComponent(`${venueName} - ${fullAddress}`)
     return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${loc}&startdt=2026-12-12T18:30:00Z&enddt=2026-12-12T23:30:00Z&path=/calendar/action/compose&rru=addevent`
@@ -89,13 +89,13 @@ export const EventDetails: FC = () => {
       'DTSTAMP:20261116T120000Z',
       'DTSTART:20261212T183000Z',
       'DTEND:20261212T233000Z',
-      'SUMMARY:👑 1° Aninho das Princesas Laura & Olívia',
-      'DESCRIPTION:Festa de 1 aninho das princesas Laura & Olívia no Salão Castelo Agriões!',
+      'SUMMARY:👑 1° Aninho das Princesas da Disney • Laura & Olívia',
+      'DESCRIPTION:Festa de 1 ano das princesas da Disney Laura & Olívia no Salão Castelo Agriões!',
       `LOCATION:${venueName} - ${fullAddress}`,
       'STATUS:CONFIRMED',
       'BEGIN:VALARM',
       'TRIGGER:-PT2H',
-      'DESCRIPTION:Lembrete: Festa das Princesas Laura & Olívia hoje às 15:30h!',
+      'DESCRIPTION:Lembrete: Festa das Princesas da Disney Laura & Olívia hoje às 15:30h!',
       'ACTION:DISPLAY',
       'END:VALARM',
       'END:VEVENT',
@@ -117,13 +117,13 @@ export const EventDetails: FC = () => {
     <section id="local" className="py-12 px-4 max-w-4xl mx-auto">
       <div className="text-center mb-8">
         <span className="inline-block px-3.5 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full uppercase tracking-wider mb-2">
-          Local da Festa 🏰
+          O Castelo Encantado da Disney 🏰
         </span>
         <h2 className="text-3xl sm:text-4xl font-bold text-pink-900 font-serif">
-          Local da Celebração
+          Local do Baile Real
         </h2>
         <p className="text-sm text-stone-600 mt-1.5 max-w-md mx-auto">
-          Um castelo encantado preparado para receber cada um dos nossos convidados de honra!
+          O Salão Castelo Agriões se vestirá de magia e encanto para receber cada um dos nossos convidados de honra!
         </p>
       </div>
 

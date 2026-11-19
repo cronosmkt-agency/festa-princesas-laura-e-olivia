@@ -138,7 +138,7 @@ function doPost(e) {
     if (emailProprietario && data.presenca && data.presenca.indexOf("Confirmado") !== -1) {
       MailApp.sendEmail({
         to: emailProprietario,
-        subject: "🎉 Nova Presença Confirmada: " + data.nome + " (1° Aninho Laura & Olívia)",
+        subject: "🎉 Nova Presença Confirmada: " + data.nome + " (1° Aninho Laura & Olívia - Princesas da Disney)",
         body: "Olá, Carina!\\n\\nUma nova presença acaba de ser confirmada no site:\\n\\n" +
               "👤 Convidado: " + data.nome + "\\n" +
               "📱 WhatsApp: " + data.telefone + "\\n" +

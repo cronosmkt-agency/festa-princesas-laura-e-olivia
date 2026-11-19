@@ -43,7 +43,7 @@ export const Countdown: FC = () => {
         
         <div className="inline-flex items-center gap-1.5 sm:gap-2 text-pink-700 text-[11px] min-[380px]:text-xs font-bold tracking-wider sm:tracking-widest uppercase mb-2.5 sm:mb-3 max-w-full flex-wrap justify-center">
           <Hourglass className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 animate-spin shrink-0" style={{ animationDuration: '10s' }} />
-          <span>Contagem Regressiva para o 1° Aninho</span>
+          <span>Contagem Regressiva • Baile das Princesas da Disney</span>
           <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
         </div>
 
@@ -53,7 +53,7 @@ export const Countdown: FC = () => {
 
         {timeLeft.isPassed ? (
           <div className="p-4 bg-pink-50 rounded-2xl text-pink-800 font-bold text-base sm:text-lg">
-            🎉 O grande dia chegou! Vamos celebrar as princesas! 🎉
+            🎉 O grande dia chegou! Vamos celebrar as princesas da Disney Laura & Olívia! 🎉
           </div>
         ) : (
           <div className="grid grid-cols-4 gap-1.5 min-[380px]:gap-2.5 sm:gap-4 max-w-lg mx-auto">

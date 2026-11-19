@@ -29,7 +29,7 @@ export const Footer: FC<FooterProps> = ({ onOpenOrganizer }) => {
         </h3>
 
         <p className="text-xs text-stone-500 max-w-sm mx-auto">
-          Festa das Princesas • Sábado, 12 de Dezembro de 2026<br />
+          Festa das Princesas da Disney • Sábado, 12 de Dezembro de 2026<br />
           Salão Castelo Agriões • Teresópolis, RJ
         </p>
 
